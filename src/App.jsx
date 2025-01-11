@@ -82,6 +82,7 @@ const App = () => {
               <Route path="contact" element={<Contact />} />
               <Route path="faq" element={<Faq />} />
               <Route path="*" element={<Home />} />
+              <Route path="" element={<Home />} />
             </Routes>
           </BrowserRouter>
           <Typography variant='h5'>ugh</Typography>
