@@ -1,4 +1,6 @@
-# Steps used to create this project!
+# Misc notes
+
+## Steps used to create this project!
 - npm create vite@latest . -- --template react (installs into current folder)
 - npm i (i is shorthand for install)
 - npm run dev (verify local server is running)
@@ -88,3 +90,7 @@ Example of my code:
 
 ## Closing the terminal ends with exit code 130
     Add "terminal.integrated.showExitAlert": false to the workspace settings
+
+## Make sure you have an .env file with the following parms set:
+-   VITE_AUTH0_DOMAIN=[your-domain]
+-   VITE_AUTH0_CLIENT_ID=[your-client-id]
