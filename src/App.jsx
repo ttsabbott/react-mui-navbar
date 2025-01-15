@@ -17,6 +17,7 @@ import Contact from "./pages/contact";
 import Faq from "./pages/faq";
 import Login from "./pages/login";
 import Logout from "./pages/logout";
+import Footer from './components/Footer';
 
 const App = () => {
 
@@ -87,7 +88,7 @@ const App = () => {
               <Route exact path="" render={() => <Redirect to="/" />} />
             </Routes>
           </BrowserRouter>
-          {/* <Outlet sx={{ bgcolor: "pink"}}/> */}
+          <Footer/>
         </Box>
       </Container>
     </>

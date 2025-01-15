@@ -164,48 +164,9 @@ const ResponsiveAppBar = ({ navPages, setNavPages }) => {
                         </Typography>
 
                     </Toolbar>
-
-                    {/* <Box
-                        sx={{
-                            flexGrow: 1,
-                            justifyContent: "center",
-                            display: "flex",
-                            mb: 2,
-                        }}
-                    >
-                        <Typography variant="caption" color="initial">
-                            Copyright ©2022. [] Limited
-                        </Typography>
-                    </Box> */}
-
-                    {/* <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            minHeight: '100vh',
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                borderTop: "1px solid #000",
-                                marginTop: "auto",
-                                p: 4,
-                            }}
-                            component="footer"
-                        >
-                            Copyright&copy;2025
-                        </Box></Box> */}
-
                 </Container>
             </AppBar>
-            <AppBar position="fixed" sx={{ top: 'auto', bottom: 0, }}>
-                <Container maxWidth="md">
-                    <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
-                        <Typography variant='p' sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>Copyright&copy;2025</Typography>
-                        <Typography variant='p'>{selectedItem}</Typography>
-                    </Toolbar>
-                </Container>
-            </AppBar>
+            {/* <Typography variant='p'>{selectedItem}</Typography> */}
         </>
     );
 
