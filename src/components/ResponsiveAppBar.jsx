@@ -1,6 +1,6 @@
 import { useState } from 'react';
-
 import { NavLink } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,6 +15,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Pets from '@mui/icons-material/Pets';
 
 const ResponsiveAppBar = ({ navPages, setNavPages }) => {
+
+    const { loginWithRedirect, isAuthenticated } = useAuth0();
 
     const [selectedItem, setSelectedItem] = useState(() => {
         let foundSelected = navPages[0].title;
@@ -53,17 +55,17 @@ const ResponsiveAppBar = ({ navPages, setNavPages }) => {
 
     return (
         <>
-            <Typography variant='h5'>{selectedItem}</Typography>
             <AppBar position="static">
-                <Container maxWidth="xl">
+                <Container maxWidth="md">
                     <Toolbar disableGutters>
 
+                        {/* NavBar with buttons when size >= medium */}
                         <Pets sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                         <Typography
                             variant="h5"
                             noWrap
-                            // component="a"
-                            // href="#app-bar-with-responsive-menu"
+                            component="a"
+                            href="/" //"#app-bar-with-responsive-menu"
                             sx={{
                                 mr: 2,
                                 display: { xs: 'none', md: 'flex' },
@@ -76,6 +78,28 @@ const ResponsiveAppBar = ({ navPages, setNavPages }) => {
                         >
                             A880TT
                         </Typography>
+                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} justifyContent="flex-end">
+                            <>
+                                {navPages && navPages.map((navPage) => {
+                                    if (navPage.alwaysShow || (!navPage.showWhenSecure && !isAuthenticated) || (navPage.showWhenSecure && isAuthenticated))
+                                        return (
+                                            <Button
+                                                key={navPage.title}
+                                                onClick={handleCloseNavMenu}
+                                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                                component={NavLink}
+                                                to={navPage.link}
+                                                variant={navPage.selected ? "contained" : "text"}
+                                            // onClick={() => handleMenuItemClick("profile")}
+                                            >
+                                                {navPage.title}
+                                            </Button>
+                                        );
+                                })}
+                            </>
+                        </Box>
+
+                        {/* NavBar with menu list when size < medium */}
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
@@ -103,26 +127,28 @@ const ResponsiveAppBar = ({ navPages, setNavPages }) => {
                                 onClose={handleCloseNavMenu}
                                 sx={{ display: { xs: 'block', md: 'none' } }}
                             >
-                                {navPages && navPages.map((navPage) => (
-                                    <MenuItem
-                                        key={navPage.title}
-                                        onClick={handleCloseNavMenu}
-                                        component={NavLink}
-                                        to={navPage.link}
-                                        selected={navPage.selected}
-                                    >
-                                        <Typography sx={{ textAlign: 'center' }}>{navPage.title}</Typography>
-                                    </MenuItem>
-                                ))}
+                                {navPages && navPages.map((navPage) => {
+                                    if (navPage.alwaysShow || (!navPage.showWhenSecure && !isAuthenticated) || (navPage.showWhenSecure && isAuthenticated))
+                                        return (
+                                            <MenuItem
+                                                key={navPage.title}
+                                                onClick={handleCloseNavMenu}
+                                                component={NavLink}
+                                                to={navPage.link}
+                                                selected={navPage.selected}
+                                            >
+                                                <Typography sx={{ textAlign: 'center' }}>{navPage.title}</Typography>
+                                            </MenuItem>
+                                        );
+                                })}
                             </Menu>
                         </Box>
-
                         <Pets sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                         <Typography
                             variant="h5"
                             noWrap
-                            // component="a"
-                            // href="#app-bar-with-responsive-menu"
+                            component="a"
+                            href="/" //"#app-bar-with-responsive-menu"
                             sx={{
                                 mr: 2,
                                 display: { xs: 'flex', md: 'none' },
@@ -136,24 +162,47 @@ const ResponsiveAppBar = ({ navPages, setNavPages }) => {
                         >
                             A880TT
                         </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            <>
-                                {navPages && navPages.map((navPage) => (
-                                    <Button
-                                        key={navPage.title}
-                                        onClick={handleCloseNavMenu}
-                                        sx={{ my: 2, color: 'white', display: 'block' }}
-                                        component={NavLink}
-                                        to={navPage.link}
-                                        variant={navPage.selected ? "contained" : "text"}
-                                    // onClick={() => handleMenuItemClick("profile")}
-                                    >
-                                        {navPage.title}
-                                    </Button>
-                                ))}
-                            </>
-                        </Box>
 
+                    </Toolbar>
+
+                    {/* <Box
+                        sx={{
+                            flexGrow: 1,
+                            justifyContent: "center",
+                            display: "flex",
+                            mb: 2,
+                        }}
+                    >
+                        <Typography variant="caption" color="initial">
+                            Copyright ©2022. [] Limited
+                        </Typography>
+                    </Box> */}
+
+                    {/* <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            minHeight: '100vh',
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                borderTop: "1px solid #000",
+                                marginTop: "auto",
+                                p: 4,
+                            }}
+                            component="footer"
+                        >
+                            Copyright&copy;2025
+                        </Box></Box> */}
+
+                </Container>
+            </AppBar>
+            <AppBar position="fixed" sx={{ top: 'auto', bottom: 0, }}>
+                <Container maxWidth="md">
+                    <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
+                        <Typography variant='p' sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>Copyright&copy;2025</Typography>
+                        <Typography variant='p'>{selectedItem}</Typography>
                     </Toolbar>
                 </Container>
             </AppBar>

@@ -15,14 +15,18 @@ import Home from "./pages/home";
 import About from "./pages/about";
 import Contact from "./pages/contact";
 import Faq from "./pages/faq";
+import Login from "./pages/login";
+import Logout from "./pages/logout";
 
 const App = () => {
 
   var initialNavPages = [
-    { title: "Home", link: "/", selected: true, },
-    { title: "About", link: "about", selected: false, },
-    { title: "Contact", link: "contact", selected: false, },
-    { title: "FAQ", link: "faq", selected: false, },
+    { title: "Home", link: "/", selected: true, alwaysShow: true, showWhenSecure: true, },
+    { title: "About", link: "about", selected: false, alwaysShow: false, showWhenSecure: true, },
+    { title: "Contact", link: "contact", selected: false, alwaysShow: false, showWhenSecure: true, },
+    { title: "FAQ", link: "faq", selected: false, alwaysShow: false, showWhenSecure: true, },
+    { title: "Login", link: "login", selected: false, alwaysShow: false, showWhenSecure: false, },
+    { title: "Logout", link: "logout", selected: false, alwaysShow: false, showWhenSecure: true, },
   ];
 
   const useStorageState = (key, initialState) => {
@@ -36,8 +40,8 @@ const App = () => {
   };
 
   // Method 1 - use custom hook
-  const [navPages1, setNavPages1] = useStorageState('navPages1', JSON.stringify(initialNavPages));
-  console.log(JSON.stringify(navPages1, null, 4));
+  // const [navPages1, setNavPages1] = useStorageState('navPages1', JSON.stringify(initialNavPages));
+  // console.log(JSON.stringify(navPages1, null, 4));
 
   // Method 2 - use state only
   // const [navPages2, setNavPages2] = useState(initialNavPages);
@@ -56,12 +60,6 @@ const App = () => {
     const localNavPages = localStorage.getItem('navPages');
     // console.log(JSON.stringify(JSON.parse(localNavPages), null, 4));
     return localNavPages ? JSON.parse(localNavPages) : initialNavPages
-      // [
-      //   { title: "Home", link: "/", selected: true, },
-      //   { title: "About", link: "about", selected: false, },
-      //   { title: "Contact", link: "contact", selected: false, },
-      //   { title: "FAQ", link: "faq", selected: false, },
-      // ]
   });
 
   // useEffect(() => {
@@ -77,15 +75,18 @@ const App = () => {
           <BrowserRouter basename='/react-mui-navbar'>
             <ResponsiveAppBar navPages={navPages} />
             <Routes>
-              <Route index element={<Home />} />
-              <Route path="about" element={<About />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="faq" element={<Faq />} />
-              <Route path="*" element={<Home />} />
-              <Route path="" element={<Home />} />
+              {/* <Route index element={<Home />} /> */}
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<Faq />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Logout />} />
+              {/* <Route path="*" element={<Home />} /> */}
+              {/* <Route path="" element={<Home />} /> */}
+              <Route exact path="" render={() => <Redirect to="/" />} />
             </Routes>
           </BrowserRouter>
-          <Typography variant='h5'>ugh</Typography>
           {/* <Outlet sx={{ bgcolor: "pink"}}/> */}
         </Box>
       </Container>

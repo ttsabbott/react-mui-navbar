@@ -82,3 +82,9 @@ Example of my code:
 
 ## How to remove item from local storage
     localStorage.removeItem(key);
+
+## How to add auth0 to project:
+    npm install @auth0/auth0-react
+
+## Closing the terminal ends with exit code 130
+    Add "terminal.integrated.showExitAlert": false to the workspace settings
